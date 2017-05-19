@@ -1,0 +1,133 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{a4,amssymb,bbm}
+\usepackage{tabularx} 
+\usepackage[all]{xy}
+\usepackage{enumerate} 
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathtools}
+
+\usepackage{tikz-cd}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{exercise}{Exercise}
+
+\newtheorem{zusatz}[theorem]{Zusatzaufgabe}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem*{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\q}{\mathfrak{q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Sp}{\text{Spec}}
+\author{Janos }
+\begin{document}
+\setcounter{exercise}{0}
+\begin{exercise}
+Let $A\xrightarrow[]{f} B \xrightarrow[]{g} C$ be morphisms of rings.
+\begin{enumerate}
+\item[i)] Show that there exists an exact sequence 
+$$C\otimes_B \Omega_{B/A}^1 \rightarrow \Omega_{C/A}^1\rightarrow \Omega_{C/B}^1 \rightarrow 0$$
+of $C$-modules.
+\item[ii)] Assume that $B\rightarrow C$ is surjective with kernel $I := \text{ker}(B\rightarrow C)$. Prove that there exists an exact sequence (of $C$-modules)
+$$C\otimes_B I \cong I/I^2 \xrightarrow[]{\alpha} C\otimes_B \Omega_{B/A}^1 \rightarrow \Omega_{C/A}^1 \rightarrow 0$$
+where $\alpha(g) := dg$ for $g\in I$.
+\end{enumerate}
+\end{exercise}
+\begin{solution}
+i) Recall from commutative algebra that an exact sequence of $C$-modules $N'\rightarrow N \rightarrow N'' \rightarrow 0$ is exact if and only if for every $C$-module $M$ the sequence $0 \rightarrow \text{Hom}_C(N'',M)\rightarrow \text{Hom}_C(N,M) \rightarrow \text{Hom}_C(N',M)$ is exact. Thus it is sufficient to show that for all $C$-modules $M$ the sequence
+\begin{align}
+0\rightarrow\text{Hom}_C(\Omega_{C/B}^1,M)\rightarrow \text{Hom}_C(\Omega_{C/A}^1,M) \rightarrow \text{Hom}_C(C\otimes_B \Omega_{B/A}^1,M)
+\end{align}
+is exact. We have natual isomorphisms $$\text{Hom}_C(C\otimes_B \Omega_{B/A}^1,M) \cong \text{Hom}_B(\Omega_{B/A}^1,\text{Hom}_C(C,M)) \cong \text{Hom}_B(\Omega_{B/A}^1,M).$$
+This and the universal property of the module of differentials implies that the sequence $(1)$ is isomorphic to 
+\begin{align*}
+0\rightarrow\text{Der}_B(C,M)\rightarrow \text{Der}_A(C,M) \rightarrow \text{Der}_A(B,M)
+\end{align*}
+where the first map is the natural inlcusion and the second map is given by precomposition with $g : B\rightarrow C$. If $D \in \text{Der}_B(C,M)$ is a derivation, then $D(g(b)) = g(b)D1=0$. For the other inclusion let now $D \in \text{Der}_A(C,M)$ be a derivation such that $D \circ g = 0$. But then for $b\in B, c\in C$ we have $D(b\cdot c) = D(g(b)c) = D(g(b))c+g(b)D(c)=g(b)D(c)$, so $D$ is in fact $B$-linear.\\
+
+ii) Let $M$ be any $C$-module. By the Tensor-hom adjunction we have a natural isomorphism $\text{Hom}_C(C\otimes_A I, M) \cong \text{Hom}_A(I,M)$ and similarly as in i) we reduce the claim to showing that the sequence 
+$$0\rightarrow  \text{Der}_A(C,M) \rightarrow \text{Der}_A(B,M) \rightarrow \text{Hom}_A(I,M)$$
+is exact. The first map is injective because $g$ is surjective. A derivation $D\in \text{Der}_A(B,M)$ vanishes on $I$ if and only if we can consider it as a derivation on $C = B /I$, so the sequence is also exact at $\text{Der}_A(B,M)$ and the claim follows.
+\end{solution}
+
+\begin{exercise}
+Compute $\Omega_{B/A}^1$ for
+\begin{enumerate}
+\item[i)] $B = A[X] / (f(X))$ with $f(X) \in A[X]$ a polynomial.
+\item[ii)]$B = \mathbb{Z}[i], A=\mathbb{Z}$.
+\item[iii)] $B = k[x,y]/(y^2-x^3-x)$ with $A=k$ not of characteristic $2$.
+\item[iv)] $B=k[x,y]/(xy)$, $A=k$.
+\end{enumerate}
+\end{exercise}
+\begin{solution}
+Consider the map of rings $ A \rightarrow B = A[X_1,\dots X_n] \rightarrow C = \frac{A[X_1,\dots , X_n]}{(f_1,\dots , f_k)}$.
+Then by Exercise 1, ii) there is an exact sequence
+$$\frac{(f_1, \dots , f_k)}{(f_1, \dots , f_k)^2} \xrightarrow[]{\alpha} C\otimes_B \Omega_{B/A}^1 \rightarrow \Omega_{C/A}^1 \rightarrow 0.$$
+Hence we obtain 
+$$
+\Omega_{C/A}^1 \cong \frac{C\otimes_B \bigoplus_{i=1}^n B\text{d}X_i}{(\alpha(f_1), \dots ,\alpha(f_k))} \cong \frac{ \bigoplus_{i=1}^n C\text{d}X_i}{(\sum_j \frac{\partial f_i}{\partial X_j}\text{d}X_j)}
+$$
+We now apply this to the exercise.
+\begin{enumerate}
+\item[i)] Here we get $$\Omega_{B/A}^1 \cong \frac{A[X]/(f(X))}{f'(X)} \cong A[X]/(f(X), f'(X))$$.
+\item[ii)] In this case we have $\mathbb{Z}[i] = \mathbb[X] / (X^2+1)$ and we find 
+$$\Omega_{B/A}^1 \cong \mathbb{Z}[X]/(X^2+1,2X) \cong \mathbb{Z}[i]/(2i) \cong \mathbb{Z}[i]/(2) \cong \mathbb{F}_2[i] \cong \mathbb{F}_2^2$$
+\item[iii)] We compute that $$\Omega_{B/A}^1 \cong \frac{B\text{d}x+ B\text{d}y}{((3x^2+1)\text{d}x - y\text{d}y)} $$
+\item[iv)] We get
+$$\Omega_{B/A}^1 \cong \frac{B\text{d}x+ B\text{d}y}{(x\text{d}y+y\text{d}x)} $$
+\end{enumerate}
+\end{solution}
+\begin{exercise}
+Let $A$ be a perfect $\mathbb{F}_p$-algebra, i.e., the Frobenius $\text{Fr}_A : A\rightarrow A, x \mapsto x^p$ of $A$ is bijective . Prove that $\text{Spec}(A) \rightarrow \text{Spec}(\mathbb{F}_p)$ is formally etale.
+\end{exercise}
+\begin{solution}
+We have to show that for every commutative diagram
+\[
+\begin{tikzcd}[sep=huge]
+R/I & A \arrow[l, "f"']\\
+R \arrow[u]  & \mathbb{F}_p \arrow[l] \arrow[u]
+\end{tikzcd}
+\]
+such that $R\rightarrow R/I$ is a square zero extension, there exists a unique map $u: R \rightarrow A$ making the diagram commute.\\
+Assume that for $x,y \in R$ we have $x = y \mod I$. Then $x-y \in I$ and hence $x^p -y^p = (x-y)^p = 0$ because $I^2=0$.
+Consider the map $s : R/I \rightarrow R, \overline{x} \mapsto x^p$. This is well defined by the previous observation and since everything is of characteristic $p$, $s$ is in fact a ringhomomoprhism.
+Now we define a map $u=s \circ f \circ \text{Fr}_A^{-1}$. The upper left triangle commutes by construction and the lower right triangle commutes for ever ringhomomorphism $R\rightarrow A$. Thus $\mathbb{F}_p \rightarrow A$ is formally smooth.\\
+Since $A$ is perfect, for any $a\in A$ there is a $p$'th root $b\in A$ and therefore $\text{d}a = \text{d}b^p = pb^{p-1}\cdot \text{d}b = 0$. So $\Omega_{A/\mathbb{F}_p}^1 = 0$, which shows that $A$ is formally unramified over $\mathbb{F}_p$.
+
+\end{solution}
+
+\setcounter{equation}{0}
+\begin{exercise}
+For a ring $A$ we set $A[\epsilon] := A[t]/t^2$.
+Let $X\rightarrow S$ be a morphism of schemes. We define a functor, the "tangent bundle" $\mathcal{T}_{X/S}$ of $X/S$, by sending an affine scheme $\text{Spec}(A)$ over $S$ to the set $X(A[\epsilon])$. Prove that $\mathcal{T}_{X/S}$ is representable by the relative spectrum $\underline{\text{Spec}}_{\mathcal{O}_X}(\text{Sym}^\bullet(\Omega_{X/S}^1))$.
+\end{exercise}
+\begin{solution}
+I omit the reduction to the affine case.\\
+
+Assume that $X= \text{Spec}(R), S=\text{Spec}(B)$ are affine.\\
+Then the scheme $\underline{\text{Spec}}_{\mathcal{O}_X}(\text{Sym}^\bullet(\Omega_{X/S}^1))$ represents the functor 
+\begin{align*}
+(f: \text{Spec}(A) \rightarrow S) \mapsto \text{Hom}_{\mathcal{O}_S-\text{alg}}(\text{Sym}^\bullet(\Omega_{X/S}^1), f_*(\mathcal{O}_{\text{Spec}(A)}))
+\end{align*} 
+
+
+\begin{align}
+\mathcal{T}_{X/S}(A) = \text{Hom}_S(\text{Spec}(A[\epsilon]), X) \cong \text{Hom}_B(R, A[\epsilon]) 
+\end{align}
+Let $\varphi \in \text{Hom}_B(R, A[\epsilon]) $. Then we can write $\varphi = \varphi_1 + \epsilon \varphi_2$ and one easily verifies that $\varphi$ is a $B$-algebra homomorphism if and only if $\varphi_1$ is a $B$-algebra homomorphism and if we consider $A$ as $B$-algebra via $\varphi_1$, then $\varphi_2$ is $B$-linear derivation. Hence 
+$$ (1) = \{(\varphi_1, \varphi_2) : \varphi_1 : R \rightarrow A \text{ algebra homomorphism }, \varphi_2 \in \text{Hom}_{R,\varphi_1}(\Omega_{R / B}^1, A)\}$$
+Now let $M$ be any $R$-module and fix a map $R \rightarrow A$. Then
+\end{solution}
+
+\end{document}

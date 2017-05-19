@@ -1,0 +1,87 @@
+\documentclass[10pt]{article}
+
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{a4,amssymb,bbm}
+\usepackage{tabularx} 
+\usepackage[all]{xy}
+\usepackage{enumerate} 
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathtools}
+
+\usepackage{tikz-cd}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{exercise}{Exercise}
+
+\newtheorem{zusatz}[theorem]{Zusatzaufgabe}
+\newtheorem{ua}[theorem]{\"Ubungsaufgabe}
+\newtheorem*{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{remark}{Remark}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\q}{\mathfrak{q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Sp}{\text{Spec}}
+\author{Janos }
+\begin{document}
+\setcounter{exercise}{0}
+\begin{exercise}
+Let $A$ be a Dedekind domain and set $ S = Spec (A)$. Let $X$ be an integral scheme. Prove that a morphism $f: X \rightarrow S$ is flat if and only if it maps the generic point of $X$ to the generic point of $S$.
+\end{exercise}
+\begin{solution}
+Since flatness is local on the source we may assume that $X = Spec R$ for some integral domain $R$. Let $f$ be induced by the ring homomorphism $ \phi : A \rightarrow R$. Then $\phi$ is flat if and only if $R$ is torsionfree as an $A$-module. But this happens if and only if $\phi $ is inective, i.e. $f$ maps the generic point of $X$ to the generic point of $S$.
+\end{solution}
+
+\begin{exercise}
+
+\begin{enumerate}
+\item[i)] Let $\phi : A \rightarrow B$ be a flat, local morphism of local rings. Prove that the morphism $$\Sp (B) \rightarrow \Sp (A)$$
+is surjective
+\item[ii)] Let $f: X \rightarrow S$ be a flat morphism of schemes. Prove that $f$ is universally generalising.
+\end{enumerate}
+\end{exercise}
+\begin{solution}
+i) \\
+Let $\p \subset A$ be a prime ideal of $A$. Since $B$ is a flat $A$-module, tensoring the injection $A / \p \hookrightarrow \text{Frac}(A / \p)$ with $B$ yields an injection 
+$$B / \p B \cong A / \p \otimes_A B \hookrightarrow \kappa(  \p) \otimes_A B.$$
+$\phi$ is a local homomorphism of rings, hence it maps $\p$ into the maximal ideal of $B$. Thus $B / \p B$ is not the zero ring and therefore the fibre of $\p$ is not zero either, i.e. the map on Spectra is surjective.\\
+ii)
+Observe that it is enough to show that $f$ is generalising, because the property of being flat is stable under base change.
+Let $x \in X$ and $y= f(x)$ and choose affine neighborhoods $x\in \Sp (A)$ and $\Sp (B)$ of $X,y$ such that $f^{-1}(\Sp (B)) \subset \Sp (A)$. Note that the open subschemes $\Sp (A_{ \p _x}) \subset \Sp (A)$ and $\Sp(B_{\p _y}) \subset \Sp (B)$ are exactly the points which specialize to $x$ and $y$ respectively. Now consider the commutative diagram
+\[
+  \begin{tikzcd}
+     \Sp (A_{ \p _x}) \arrow{r}{} \arrow[d] & \Sp(B_{\p _y}) \arrow[d] \\
+      \Sp (A) \arrow{r}{f} & \Sp (B)
+  \end{tikzcd}
+\]
+Then by i) the upper horizontal arrow is surjective and hence for every point $y'$ that specializes to $y$ there is a point $x'$ that specializes to $x$ and such that $f(x') = y$.
+\end{solution}
+
+\begin{exercise}
+Let $f: X \rightarrow S$ be a closed immersion. Then $f$ is flat and locally of finite presentation if and only if $f$ is an open immersion.
+\end{exercise}
+\begin{solution}
+"$\Rightarrow$": We show that $f$ is open and induces isomorphisms on all stalks.
+For every $x\in X$ we have morphism $ \phi : \mathcal{O}_{S,f(x)} \rightarrow \mathcal{O}_{X,x}$. Since $\mathcal{O}_{X,x}$ is a flat and finitely presented module over a local ring, it is finite free, say $\mathcal{O}_{X,x} \cong \mathcal{O}_{S,f(x)}^k$. Also $f$ is a closed immersion, so $\phi$ is surjective. Hence $\phi$ is an isomorphism.\\
+Now let $U=\Sp ( A)$ be an affine open neighborhood of $f(x)$. Then $f$ restricts to a map $\Sp (A / \mathfrak{a}) = f^{-1}(U) \rightarrow U$ for some ideal $\mathfrak{a} \subset A$. If we tensor the SES
+$$ 0 \rightarrow \mathfrak{a} \rightarrow A \rightarrow A / \mathfrak{a} \rightarrow 0$$
+with the flat $A$-module $A/ \mathfrak{a}$ we obtain the SES
+$$ 0 \rightarrow \mathfrak{a} / \mathfrak{a}^2 \rightarrow A / \mathfrak{a} \rightarrow A / \mathfrak{a} \otimes_A A/ \mathfrak{a} \rightarrow 0$$
+Note that since $$A / \mathfrak{a} \otimes_A A/ \mathfrak{a} \cong \frac{A / \mathfrak{a}}{\mathfrak{a} \cdot A / \mathfrak{a} } \cong A / \mathfrak{a},$$ the last map is an isomorphism, thus $\mathfrak{a} = \mathfrak{a}^2$.
+Since $A / \mathfrak{a}$ is finitely presented, $\mathfrak{a}$ is finitely generated. Hence Nakayamas Lemma implies that  $\mathfrak{a} = (e)$ for some idempotent element $ e\in A$.  Now by the chinese remainder theorem $A = A / (1-e)e \cong A / e \oplus A / (1-e)$ and therefore $V(\mathfrak{a}) = V(e) = D(1-e)$ is open. This shows that $f$ is open.\\
+
+"$\Leftarrow$": This is true, because an isomorphism of rings is flat and of finite presentation.
+
+\end{solution}
+\end{document}

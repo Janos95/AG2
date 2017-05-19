@@ -1,0 +1,82 @@
+\documentclass[10pt]{article}
+
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{a4,amssymb,bbm}
+\usepackage{tabularx} 
+\usepackage[all]{xy}
+\usepackage{enumerate} 
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathtools}
+
+\usepackage{tikz-cd}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{exercise}{Exercise}
+
+\newtheorem{zusatz}[theorem]{Zusatzaufgabe}
+\newtheorem{ua}[theorem]{\"Ubungsaufgabe}
+\newtheorem*{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{remark}{Remark}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Janos }
+\begin{document}
+\setcounter{exercise}{0}
+\begin{exercise}
+Let $A$ be a ring and let $M$ be and $A$-module. Recall that $M$ is flat over $A$ if the functor $ M\otimes_A -$ is exact.
+\begin{enumerate}
+\item[i)] Show that $M$ is flat over $A$ if and only if for every maximal ideal $\mathfrak{m} \subseteq A$ the $A_{\mathfrak{m}}$-module $M_{\mathfrak{m}}$ is flat.
+\item[ii)] Assume that $A$ is a Dedekindring. Show that $M$ is flat over $A$ if and only if it is torsionfree, i.e., if $fm=0$ for $f \in A \ \{0\}$ and $m \in M$, then $m =0$.
+\end{enumerate}
+\end{exercise}
+\begin{solution}
+i) \\
+
+$\Rightarrow$: We first show that flatness is stable under base change. Let $A \rightarrow B$ be a morhpism and let $M$ be a flat $A$-module. If $ N \hookrightarrow P$ is an injective map of $B$-modules, we have the following commutative diagramm
+\[
+  \begin{tikzcd}
+    N \otimes_B M \otimes_A B \arrow{r}{} \arrow[d] & N \otimes_B M \otimes_A B \arrow{d} \\
+      N \otimes_A M \arrow{r}{} & N \otimes_A M
+  \end{tikzcd}
+\]
+where the lower horizontal map is injective, by the flatness of $M$. Thus so is the upper horizontal map and therefore $M \otimes_A B$ is a flat $B$-module. Now the claim follows from the fact that $M_{\mathfrak{m}} \cong M \otimes_A A_{\mathfrak{m}}$.
+
+$\Leftarrow$: We have the following implications.
+\begin{align*}
+&N \rightarrow P &\text{injective} \\
+\Rightarrow &N_{\mathfrak{m}} \rightarrow P_{\mathfrak{m}} &\text{injective for all }\mathfrak{m}\subset A\\
+\Rightarrow &N_{\mathfrak{m}} \otimes_{R_{\mathfrak{m}}} M_{\mathfrak{m}} \rightarrow P_{\mathfrak{m}}\otimes_{R_{\mathfrak{m}}} M_{\mathfrak{m}} &\text{injective for all }\mathfrak{m}\subset A\\
+\Rightarrow &(N \otimes_{R} M)_{\mathfrak{m}} \rightarrow (P \otimes_{R} M)_{\mathfrak{m}} &\text{injective for all }\mathfrak{m}\subset A\\
+\Rightarrow &(N \otimes_{R} M)\rightarrow (P \otimes_{R} M) &\text{injective}
+\end{align*}
+ii)\\
+
+$\Rightarrow$: Assume that $M$ has torsion, i.e. there is some nonzero $f\in A$ and $m \in M$ such that $fm=0$.
+Then since $A$ is an integral domain, the map $A \rightarrow A_f$ is injective. If we tensor this map with $M$ we get a map $M \rightarrow M_f$ which maps $m \mapsto \frac{m}{1} = \frac{fm}{f} = 0$. So $M$ is not flat.\\
+
+$\Leftarrow$: By i) it is enough to prove that for every maximal ideal $\mathfrak{m} \subset A$ the $A_{\mathfrak{m}}$-module $M_{\mathfrak{m}}$ is flat. Since the localization of a Dedekindring at a maximal ideal is a DVR, we may assume that $A$ is a DVR. In particular $A$ is a principal ideal domain and since $M$ is torsionfree, every finitely generated submodule $M'\subset M$ is free by the structure theorem for finitely generated modules over a principal ideal domain.
+Let $ \phi: N \hookrightarrow P$ be injective and let $I$ be some index set. Then 
+\[
+  \begin{tikzcd}
+    N \otimes_A A^I \arrow{r}{\phi \otimes Id} \arrow[swap]{d}{} & P \otimes_A A^I \arrow{d}{} \\
+      N^I \arrow{r}{(\phi)_{i\in I}} & P^I
+  \end{tikzcd}
+\]
+so free modules are flat. 
+We write $$ M =\varinjlim_{ M'\subset M}  M',$$ where the limit runs over all finitely generated subomdules of $M$.
+Now we are done if we prove that the direct limit of flat modules is again flat. Indeed since the tensor product commutes with taking direct limit we have the the commutative diagram
+\[
+  \begin{tikzcd}
+    N \otimes_A \varinjlim_{ M'\subset M}  M' \arrow{r}{} \arrow[]{d}{} & P \otimes_A \varinjlim_{ M'\subset M}  M' \arrow{d}{} \\
+      \varinjlim_{ M'\subset M} N\otimes_A M' \arrow{r}{} & \varinjlim_{ M'\subset M}  P \otimes_A M'
+  \end{tikzcd}
+\]
+Since taking direct limit is exact and the $M'$ are flat, we conclude that also $M$ is flat.
+\end{solution}
+
+\end{document}
